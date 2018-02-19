@@ -214,8 +214,8 @@ c        | Initialize timing statistics  |
 c        | & message level for debugging |
 c        %-------------------------------%
 c
-         call arscnd (t0)
-         msglvl = mgetv0
+c         call arscnd (t0)
+c         msglvl = mgetv0
 c 
          ierr   = 0
          iter   = 0
@@ -241,7 +241,7 @@ c        | Force the starting vector into the range of OP to handle |
 c        | the generalized problem when B is possibly (singular).   |
 c        %----------------------------------------------------------%
 c
-         call arscnd (t2)
+c         call arscnd (t2)
          if (bmat .eq. 'G') then
             nopx = nopx + 1
             ipntr(1) = 1
@@ -265,8 +265,8 @@ c
       if (orth)  go to 40
 c 
       if (bmat .eq. 'G') then
-         call arscnd (t3)
-         tmvopx = tmvopx + (t3 - t2)
+c         call arscnd (t3)
+c         tmvopx = tmvopx + (t3 - t2)
       end if
 c 
 c     %------------------------------------------------------%
@@ -274,7 +274,7 @@ c     | Starting vector is now in the range of OP; r = OP*r; |
 c     | Compute B-norm of starting vector.                   |
 c     %------------------------------------------------------%
 c
-      call arscnd (t2)
+c      call arscnd (t2)
       first = .TRUE.
       if (bmat .eq. 'G') then
          nbx = nbx + 1
@@ -290,8 +290,8 @@ c
    20 continue
 c
       if (bmat .eq. 'G') then
-         call arscnd (t3)
-         tmvbx = tmvbx + (t3 - t2)
+c         call arscnd (t3)
+c         tmvbx = tmvbx + (t3 - t2)
       end if
 c 
       first = .FALSE.
@@ -333,7 +333,7 @@ c     %----------------------------------------------------------%
 c     | Compute the B-norm of the orthogonalized starting vector |
 c     %----------------------------------------------------------%
 c
-      call arscnd (t2)
+c      call arscnd (t2)
       if (bmat .eq. 'G') then
          nbx = nbx + 1
          call dcopy (n, resid, 1, workd(n+1), 1)
@@ -348,8 +348,8 @@ c
    40 continue
 c
       if (bmat .eq. 'G') then
-         call arscnd (t3)
-         tmvbx = tmvbx + (t3 - t2)
+c         call arscnd (t3)
+c         tmvbx = tmvbx + (t3 - t2)
       end if
 c 
       if (bmat .eq. 'G') then
@@ -363,12 +363,12 @@ c     %--------------------------------------%
 c     | Check for further orthogonalization. |
 c     %--------------------------------------%
 c
-      if (msglvl .gt. 2) then
-          call dvout (logfil, 1, rnorm0, ndigit, 
-     &                '_getv0: re-orthonalization ; rnorm0 is')
-          call dvout (logfil, 1, rnorm, ndigit, 
-     &                '_getv0: re-orthonalization ; rnorm is')
-      end if
+c      if (msglvl .gt. 2) then
+c          call dvout (logfil, 1, rnorm0, ndigit, 
+c     &                '_getv0: re-orthonalization ; rnorm0 is')
+c          call dvout (logfil, 1, rnorm, ndigit, 
+c     &                '_getv0: re-orthonalization ; rnorm is')
+c      end if
 c
       if (rnorm .gt. 0.717*rnorm0) go to 50
 c 
@@ -396,18 +396,18 @@ c
 c 
    50 continue
 c
-      if (msglvl .gt. 0) then
-         call dvout (logfil, 1, rnorm, ndigit,
-     &        '_getv0: B-norm of initial / restarted starting vector')
-      end if
-      if (msglvl .gt. 3) then
-         call dvout (logfil, n, resid, ndigit,
-     &        '_getv0: initial / restarted starting vector')
-      end if
+c      if (msglvl .gt. 0) then
+c         call dvout (logfil, 1, rnorm, ndigit,
+c     &        '_getv0: B-norm of initial / restarted starting vector')
+c      end if
+c      if (msglvl .gt. 3) then
+c         call dvout (logfil, n, resid, ndigit,
+c     &        '_getv0: initial / restarted starting vector')
+c      end if
       ido = 99
 c 
-      call arscnd (t1)
-      tgetv0 = tgetv0 + (t1 - t0)
+c      call arscnd (t1)
+c      tgetv0 = tgetv0 + (t1 - t0)
 c 
  9000 continue
       return
