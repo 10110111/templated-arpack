@@ -1,7 +1,9 @@
-test: Makefile src.c $(shell echo test.cpp custom/*)
+test: Makefile src.c test.cpp funcs.cpp
 	# NOTE: must use either -ffloat-store or -mfpmath=sse to avoid dsaupd failures with info=-8
-	gcc -g test.cpp custom/* src.c -lf2c -lm -lstdc++ -o test -msse2 -mfpmath=sse ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
+	gcc -g test.cpp funcs.cpp src.c -lf2c -lm -lstdc++ -o test -msse2 -mfpmath=sse ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
 
-src.c: Makefile make-c-cat-friendly-and-cat.sh run-f2c.sh $(shell echo src/*)
-	./run-f2c.sh
+src.c: Makefile src make-c-cat-friendly-and-cat.sh $(shell echo src/* | grep -v \\*)
 	./make-c-cat-friendly-and-cat.sh
+
+src: Makefile run-f2c.sh
+	./run-f2c.sh
