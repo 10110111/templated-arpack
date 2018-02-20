@@ -11,7 +11,7 @@ if ! [[ -d "$lapackDir" ]]; then
     exit 1
 fi
 
-files=(daxpy dcopy ddot dgemv dgetv0 dlarnv dlaruv dlascl dlartg dlaset dlanst dlaev2 dlae2 dlapy2 dlasr dlasrt dlassq dnrm2 dsaitr dstqrb dsapps dsaup2 dsaupd dscal dsconv dseigt dsgets dsortr dstats dswap) # dlamch xerbla dvout dmout ivout second)
+files=(daxpy dcopy ddot dgemv dgetv0 dlarnv dlaruv dlascl dlartg dlaset dlanst dlaev2 dlae2 dlapy2 dlasr dlasrt dlassq dnrm2 dsaitr dstqrb dsapps dsaup2 dsaupd dseupd dscal dsconv dseigt dsgets dsortr dstats dswap) # dlamch xerbla dvout dmout ivout second)
 
 mkdir -pv fortran
 for func in "${files[@]}"
