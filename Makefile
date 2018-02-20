@@ -1,2 +1,3 @@
 test: Makefile $(shell ls test.cpp custom/* src/*)
-	gcc -g test.cpp custom/* src/* -lf2c -lm -lstdc++ -o test ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
+	# NOTE: must use either -ffloat-store or -mfpmath=sse to avoid dsaupd failures with info=-8
+	gcc -g test.cpp custom/* src/* -lf2c -lm -lstdc++ -o test -msse2 -mfpmath=sse ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
