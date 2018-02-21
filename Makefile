@@ -7,3 +7,4 @@ src.c: Makefile src make-c-cat-friendly-and-cat.sh $(shell echo src/* | grep -v 
 
 src: Makefile run-f2c.sh
 	./run-f2c.sh
+	touch src # make sure make sees it as up-to-date
