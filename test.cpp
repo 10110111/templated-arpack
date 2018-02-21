@@ -9,14 +9,14 @@
 #include <cmath>
 
 #include <f2c.h>
-extern "C" int dsaupd_(integer *ido, char *bmat, integer *n, char *
+int dsaupd_(integer *ido, const char *bmat, integer *n, const char *
 	which, integer *nev, doublereal *tol, doublereal *resid, integer *ncv,
 	 doublereal *v, integer *ldv, integer *iparam, integer *ipntr, 
 	doublereal *workd, doublereal *workl, integer *lworkl, integer *info, 
 	ftnlen bmat_len, ftnlen which_len);
-extern "C" int dseupd_(logical *rvec, char *howmny, logical *select, 
+int dseupd_(logical *rvec, const char *howmny, logical *select, 
 	doublereal *d__, doublereal *z__, integer *ldz, doublereal *sigma, 
-	char *bmat, integer *n, char *which, integer *nev, doublereal *tol, 
+	const char *bmat, integer *n, const char *which, integer *nev, doublereal *tol, 
 	doublereal *resid, integer *ncv, doublereal *v, integer *ldv, integer 
 	*iparam, integer *ipntr, doublereal *workd, doublereal *workl, 
 	integer *lworkl, integer *info, ftnlen howmny_len, ftnlen bmat_len, 

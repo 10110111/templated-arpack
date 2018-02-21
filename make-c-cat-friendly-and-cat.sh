@@ -18,4 +18,8 @@ for file in *.c; do
 done
 
 cd ..
-cat "$dirName"/*.c | sed 's@\<char *\*@const char*@g' > src.cpp
+cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
+                         -e '/#ifdef __cplusplus/,/#endif$/d' \
+                         -e '/disnan_(doublereal/d' \
+                         -e '/^ *\/\* Subroutine \*\/.*;$/d' \
+                         -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' > src.cpp
