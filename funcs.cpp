@@ -56,7 +56,7 @@ void xerbla_(const char* SRNAME, const int* info, unsigned srnameLen)
 }
 
 // Some functions from libf2c (adapted to C++ and reformatted), to avoid linking to it
-#include <f2c.h>
+#include "f2c.h"
 integer s_cmp(const char *a0, const char *b0, ftnlen la, ftnlen lb)
 {
     const unsigned char *a, *aend, *b, *bend;
