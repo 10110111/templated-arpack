@@ -18,4 +18,4 @@ for file in *.c; do
 done
 
 cd ..
-cat "$dirName"/*.c > src.c
+cat "$dirName"/*.c | sed 's@\<char *\*@const char*@g' > src.cpp
