@@ -1,4 +1,4 @@
-test: Makefile src.cpp test.cpp funcs.cpp
+test: Makefile src.cpp test.cpp funcs.cpp f2c.h
 	# NOTE: must use either -ffloat-store or -mfpmath=sse to avoid dsaupd failures with info=-8
 	gcc -Werror=implicit-function-declaration -g -I. test.cpp funcs.cpp src.cpp -lm -lstdc++ -o test -msse2 -mfpmath=sse ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
 
