@@ -1,6 +1,6 @@
 test: Makefile src.c test.cpp funcs.cpp
 	# NOTE: must use either -ffloat-store or -mfpmath=sse to avoid dsaupd failures with info=-8
-	gcc -g test.cpp funcs.cpp src.c -lm -lstdc++ -o test -msse2 -mfpmath=sse ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
+	gcc -Werror=implicit-function-declaration -g test.cpp funcs.cpp src.c -lm -lstdc++ -o test -msse2 -mfpmath=sse ${CXXFLAGS} ${CFLAGS} ${LDFLAGS}
 
 src.c: Makefile src make-c-cat-friendly-and-cat.sh $(shell echo src/* | grep -v \\*)
 	./make-c-cat-friendly-and-cat.sh
