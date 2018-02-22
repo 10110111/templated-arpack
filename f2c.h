@@ -97,7 +97,5 @@ doublereal pow_dd(const doublereal *ap, const doublereal *bp)
 #define min(a,b) ((a) <= (b) ? (a) : (b))
 #define max(a,b) ((a) >= (b) ? (a) : (b))
 using std::abs;
-#define TRUE_ (1)
-#define FALSE_ (0)
 
 #endif

@@ -22,6 +22,8 @@ cd ..
 # it because sometimes it appears in the same line as another declaration,
 # which we don't want to remove.
 cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
+                         -e 's@\<TRUE_\>@ true @g' \
+                         -e 's@\<FALSE_\>@ false @g' \
                          -e '/#ifdef __cplusplus/,/#endif$/d' \
                          -e '/disnan_(doublereal/d' \
                          -e 's@extern\(.*\)\<dlamch_(@extern\1dlamch_DISABLED(@' \
