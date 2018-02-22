@@ -2,20 +2,20 @@
 
 dirName=src-before-cat
 mkdir -pv "$dirName"
+tmpfile="$(mktemp)"
 cd src
 for file in *.c; do
     outfile="../$dirName/$file"
     cp -v "$file" "$outfile"
 
-    globalVars=( $(sed -n 's@^static [^ ]\+ \(c[^ ]\+\) = .*@\1@p' "$file") )
-
-    [[ ${#globalVars[@]} == 0 ]] && continue
-
-    echo "Replacing $var in $outfile..." >&2
-    for var in "${globalVars[@]}"; do
-        sed -i "s@\<${var}\>@${file%.c}_${var}@g" "$outfile"
-    done
+    # Move the (supposedly constant) static variables from global scope into function scope
+    sed -n -e '/\/\* Table of constant values \*\//,/^$/p' -e '/^static /,/^$/p' "$outfile" | sed 's@^.@    \0@' > "$tmpfile"
+    sed -e '/\/\* Table of constant values \*\//,/^$/d' -e '/^static /,/^$/d' -e '/^{/{q;}' "$outfile" > "$outfile.edit"
+    cat "$tmpfile" >> "$outfile.edit"
+    sed '1,/^{/d' "$outfile" >> "$outfile.edit"
+    mv "$outfile.edit" "$outfile"
 done
+rm "$tmpfile"
 
 cd ..
 # NOTE: converting dlamch_ declaration to dlamch_DISABLED instead of removing
