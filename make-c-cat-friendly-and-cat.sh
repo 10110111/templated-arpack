@@ -18,6 +18,9 @@ for file in *.c; do
 done
 
 cd ..
+# NOTE: converting dlamch_ declaration to dlamch_DISABLED instead of removing
+# it because sometimes it appears in the same line as another declaration,
+# which we don't want to remove.
 cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
                          -e '/#ifdef __cplusplus/,/#endif$/d' \
                          -e '/disnan_(doublereal/d' \
