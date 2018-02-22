@@ -9,6 +9,43 @@ void s_copy(char *a, const char *b, ftnlen la, ftnlen lb);
 integer s_cmp(const char *a0, const char *b0, ftnlen la, ftnlen lb);
 
 #include <math.h>
+#include <limits>
+
+template<typename T>
+T dlamch_(const char* cmach, ftnlen)
+{
+    typedef std::numeric_limits<T> Lim;
+
+    const bool RND=true;
+    const T EPS=Lim::epsilon()*(RND ? T(0.5) : T(1.));
+    switch(*cmach)
+    {
+    case 'E': return EPS;
+    case 'S':
+    {
+         double SFMIN = Lim::min();
+         const double SMALL = T(1.) / Lim::max();
+         if( SMALL >= SFMIN )
+         {
+/*
+*           Use SMALL plus a bit, to avoid the possibility of rounding
+*           causing overflow when computing  1/sfmin.
+*/
+            SFMIN = SMALL*( 1.+EPS );
+         }
+         return SFMIN;
+    }
+    case 'B': return Lim::radix;
+    case 'P': return EPS*Lim::radix;
+    case 'N': return Lim::digits;
+    case 'R': return RND;
+    case 'M': return Lim::min_exponent;
+    case 'U': return Lim::min();
+    case 'L': return Lim::max_exponent;
+    case 'O': return Lim::max();
+    default:  return 0;
+    }
+}
 
 template<typename T>
 int disnan_(const T* x) { return isnan(*x); }
