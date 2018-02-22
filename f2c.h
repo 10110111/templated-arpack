@@ -24,8 +24,8 @@ T dlamch_(const char* cmach, ftnlen)
     case 'E': return EPS;
     case 'S':
     {
-         double SFMIN = Lim::min();
-         const double SMALL = T(1.) / Lim::max();
+         auto SFMIN = Lim::min();
+         const auto SMALL = T(1.) / Lim::max();
          if( SMALL >= SFMIN )
          {
 /*
