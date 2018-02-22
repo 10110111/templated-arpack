@@ -31,4 +31,5 @@ cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
                          -e 's@extern\(.*\)\<dlamch_(@extern\1dlamch_DISABLED(@' \
                          -e 's@dlamch_("@dlamch_<doublereal>("@g' \
                          -e '/^ *\/\* Subroutine \*\/.*;$/d' \
-                         -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' >> src.cpp
+                         -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' \
+                         >> src.cpp
