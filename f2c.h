@@ -95,8 +95,8 @@ doublereal pow_dd(const doublereal *ap, const doublereal *bp)
 {
     return(pow(*ap, *bp) );
 }
-#define min(a,b) ((a) <= (b) ? (a) : (b))
-#define max(a,b) ((a) >= (b) ? (a) : (b))
+template<typename A, typename B> constexpr auto min(A const& a, B const& b) { return a<=b ? a : b; }
+template<typename A, typename B> constexpr auto max(A const& a, B const& b) { return a>=b ? a : b; }
 using std::abs;
 
 #endif
