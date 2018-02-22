@@ -8,7 +8,8 @@ typedef long int logical;
 void s_copy(char *a, const char *b, ftnlen la, ftnlen lb);
 integer s_cmp(const char *a0, const char *b0, ftnlen la, ftnlen lb);
 
-#include <math.h>
+#include <math.h> // to make all the math functions with all their overloads appear in global namespace (g++ doesn't put some overloads from <cmath> into global namespace)
+#include <cmath> // for std::abs, because ::abs doesn't appear to be defined in math.h when compiling with clang
 #include <limits>
 
 template<typename T>
