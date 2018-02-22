@@ -18,18 +18,23 @@ done
 rm "$tmpfile"
 
 cd ..
-# NOTE: converting dlamch_ declaration to dlamch_DISABLED instead of removing
-# it because sometimes it appears in the same line as another declaration,
-# which we don't want to remove.
-echo '#include "f2c.h"' > src.cpp
+srcFile=src.cpp
+cat > "$srcFile" <<'EOF'
+#include "f2c.h"
+
+template<typename doublereal>
+struct ARPACK
+{
+EOF
 cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
                          -e 's@\<TRUE_\>@ true @g' \
                          -e 's@\<FALSE_\>@ false @g' \
                          -e '/#ifdef __cplusplus/,/#endif$/d' \
                          -e '/#include "f2c.h"/d' \
-                         -e '/disnan_(doublereal/d' \
-                         -e 's@extern\(.*\)\<dlamch_(@extern\1dlamch_DISABLED(@' \
                          -e 's@dlamch_("@dlamch_<doublereal>("@g' \
                          -e '/^ *\/\* Subroutine \*\/.*;$/d' \
                          -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' \
-                         >> src.cpp
+                         -e '/ \+extern\> .*;$/d' \
+                         -e '/ \+extern\> .*[^;]$/,/;$/d' \
+                         >> "$srcFile"
+echo '};' >> "$srcFile"

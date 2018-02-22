@@ -8,19 +8,7 @@
 #include <limits>
 #include <cmath>
 
-#include <f2c.h>
-int dsaupd_(integer *ido, const char *bmat, integer *n, const char *
-	which, integer *nev, doublereal *tol, doublereal *resid, integer *ncv,
-	 doublereal *v, integer *ldv, integer *iparam, integer *ipntr, 
-	doublereal *workd, doublereal *workl, integer *lworkl, integer *info, 
-	ftnlen bmat_len, ftnlen which_len);
-int dseupd_(logical *rvec, const char *howmny, logical *select, 
-	doublereal *d__, doublereal *z__, integer *ldz, doublereal *sigma, 
-	const char *bmat, integer *n, const char *which, integer *nev, doublereal *tol, 
-	doublereal *resid, integer *ncv, doublereal *v, integer *ldv, integer 
-	*iparam, integer *ipntr, doublereal *workd, doublereal *workl, 
-	integer *lworkl, integer *info, ftnlen howmny_len, ftnlen bmat_len, 
-	ftnlen which_len);
+#include "src.cpp"
 
 using std::sin;
 using std::sqrt;
@@ -112,7 +100,7 @@ int main(int argc, char** argv)
     SparseSymMatProd matrixOperator(H);
 
     // Parameters are documented in dsaupd.f
-    auto tolerance=0.; // 0. -> machine precision //std::numeric_limits<Real>::epsilon();
+    Real tolerance=0.; // 0. -> machine precision //std::numeric_limits<Real>::epsilon();
     char bmat='I'; // standard problem: A*x=lambda*x
     char which[]="SA"; // largest magnitude
     integer nev=3; // number of eigenvalues
@@ -132,9 +120,10 @@ int main(int argc, char** argv)
     integer info=0; // request random initial vector
     integer ipntr[11]={};
 
+    ARPACK<Real> arpack;
     do
     {
-        dsaupd_(&ido, &bmat, &n, which, &nev, &tolerance, resid.data(), &ncv,
+        arpack.dsaupd_(&ido, &bmat, &n, which, &nev, &tolerance, resid.data(), &ncv,
                v.data(), &ldv, iparam, ipntr, workd.data(),
                workl.data(), &lworkl, &info, sizeof bmat, sizeof which);
         if(!(ido==-1 || ido==1))
@@ -155,7 +144,7 @@ int main(int argc, char** argv)
     std::vector<Real> d(nev); // eigenvalues
     integer ldz=n;
     std::vector<Real> z(ldz*nev); // orthonormal Ritz values
-    dseupd_(&wantEigenvectors, howmny, select.data(), d.data(), z.data(), &ldz, &sigma,
+    arpack.dseupd_(&wantEigenvectors, howmny, select.data(), d.data(), z.data(), &ldz, &sigma,
            &bmat, &n, which, &nev, &tolerance, resid.data(), &ncv, v.data(),
            &ldv, iparam, ipntr, workd.data(), workl.data(), &lworkl, &info,
            sizeof howmny, sizeof bmat, sizeof which);

@@ -2,11 +2,11 @@
 #define F2C_TEMPLATED_ARPACK_INCLUDED
 
 typedef long int integer;
-typedef double doublereal;
 typedef long int ftnlen;
 typedef long int logical;
 void s_copy(char *a, const char *b, ftnlen la, ftnlen lb);
 integer s_cmp(const char *a0, const char *b0, ftnlen la, ftnlen lb);
+void xerbla_(const char* SRNAME, integer* info, ftnlen srnameLen);
 
 #include <math.h> // to make all the math functions with all their overloads appear in global namespace (g++ doesn't put some overloads from <cmath> into global namespace)
 #include <cmath> // for std::abs, because ::abs doesn't appear to be defined in math.h when compiling with clang
