@@ -148,7 +148,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    integer wantEigenvectors=true;
+    logical wantEigenvectors=true;
     char howmny[]="All";
     std::vector<integer> select(ncv);
     Real sigma; // shift, not used
