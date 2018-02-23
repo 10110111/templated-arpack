@@ -18,7 +18,7 @@ done
 rm "$tmpfile"
 
 cd ..
-srcFile=src.cpp
+srcFile=templated-arpack.hxx
 cat > "$srcFile" <<'EOF'
 #include "f2c.h"
 

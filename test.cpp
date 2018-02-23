@@ -8,7 +8,7 @@
 #include <limits>
 #include <cmath>
 
-#include "src.cpp"
+#include "templated-arpack.hxx"
 
 using std::sin;
 using std::sqrt;
