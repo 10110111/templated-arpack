@@ -34,7 +34,6 @@ cat "$dirName"/*.c | sed -e 's@\<char *\*@const char* @g' \
                          -e 's@\<FALSE_\>@ false @g' \
                          -e '/#ifdef __cplusplus/,/#endif$/d' \
                          -e '/#include "f2c.h"/d' \
-                         -e '/^ *\/\* Subroutine \*\/.*;$/d' \
                          -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' \
                          -e '/ \+extern\> .*;$/d' \
                          -e '/ \+extern\> .*[^;]$/,/;$/d' \
