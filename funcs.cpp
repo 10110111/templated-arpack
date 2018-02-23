@@ -79,18 +79,18 @@ static void s_copy(char *a, const char *b, ftnlen la, ftnlen lb)
     }
 }
 
-static int disnan_(const doublereal* x) { return isnan(*x); }
+static int disnan_(const Real* x) { return isnan(*x); }
 
-static doublereal d_sign(doublereal *a, doublereal *b)
+static Real d_sign(Real *a, Real *b)
 {
-    doublereal x;
+    Real x;
     x = (*a >= 0 ? *a : - *a);
     return( *b >= 0 ? x : -x);
 }
 
-static doublereal pow_di(doublereal *ap, integer *bp)
+static Real pow_di(Real *ap, integer *bp)
 {
-    doublereal pow, x;
+    Real pow, x;
     integer n;
     unsigned long u;
 
@@ -118,7 +118,7 @@ static doublereal pow_di(doublereal *ap, integer *bp)
     return(pow);
 }
 
-static doublereal pow_dd(const doublereal *ap, const doublereal *bp)
+static Real pow_dd(const Real *ap, const Real *bp)
 {
     using std::pow;
     return(pow(*ap, *bp) );
@@ -135,19 +135,19 @@ static void xerbla_(const char* SRNAME, integer* info, ftnlen srnameLen)
 }
 
 // C++ template-aware reimplementation of LAPACK's dlamch
-static doublereal dlamch_(const char* cmach, ftnlen)
+static Real dlamch_(const char* cmach, ftnlen)
 {
-    typedef std::numeric_limits<doublereal> Lim;
+    typedef std::numeric_limits<Real> Lim;
 
     const bool RND=true;
-    const doublereal EPS=Lim::epsilon()*(RND ? doublereal(0.5) : doublereal(1.));
+    const Real EPS=Lim::epsilon()*(RND ? Real(0.5) : Real(1.));
     switch(*cmach)
     {
     case 'e': case 'E': return EPS;
     case 's': case 'S':
     {
          auto SFMIN = Lim::min();
-         const auto SMALL = doublereal(1.) / Lim::max();
+         const auto SMALL = Real(1.) / Lim::max();
          if( SMALL >= SFMIN )
          {
 /*

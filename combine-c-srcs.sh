@@ -23,7 +23,7 @@ cd ..
 srcFile=templated-arpack.hxx
 cp includes-begin.h "$srcFile"
 cat >> "$srcFile" <<'EOF'
-template<typename doublereal>
+template<typename Real>
 class ARPACK
 {
 EOF
@@ -38,5 +38,6 @@ cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
                          -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' \
                          -e '/ \+extern\> .*;$/d' \
                          -e '/ \+extern\> .*[^;]$/,/;$/d' \
+                         -e 's@\<doublereal\>@Real@g' \
                          | indent >> "$srcFile"
 echo -e '};\n\n#endif // include guard' >> "$srcFile"
