@@ -7,3 +7,7 @@ templated-arpack.hxx: Makefile funcs.cpp includes-begin.h src combine-c-srcs.sh 
 src: Makefile run-f2c.sh fortran $(shell echo fortran/* | grep -v \\*)
 	./run-f2c.sh
 	touch src # make sure make sees it as up-to-date
+
+clean:
+	rm -rf src-before-cat src templated-arpack.hxx test
+.PHONY: clean
