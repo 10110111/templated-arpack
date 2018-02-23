@@ -1,3 +1,5 @@
+CXXFLAGS=-O3
+
 test: Makefile templated-arpack.hxx test.cpp
 	${CXX} -std=c++14 -pedantic-errors -Werror=implicit-function-declaration -g test.cpp -o test ${CXXFLAGS} ${LDFLAGS}
 
