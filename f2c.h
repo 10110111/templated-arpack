@@ -21,8 +21,8 @@ T dlamch_(const char* cmach, ftnlen)
     const T EPS=Lim::epsilon()*(RND ? T(0.5) : T(1.));
     switch(*cmach)
     {
-    case 'E': return EPS;
-    case 'S':
+    case 'e': case 'E': return EPS;
+    case 's': case 'S':
     {
          auto SFMIN = Lim::min();
          const auto SMALL = T(1.) / Lim::max();
@@ -36,14 +36,14 @@ T dlamch_(const char* cmach, ftnlen)
          }
          return SFMIN;
     }
-    case 'B': return Lim::radix;
-    case 'P': return EPS*Lim::radix;
-    case 'N': return Lim::digits;
-    case 'R': return RND;
-    case 'M': return Lim::min_exponent;
-    case 'U': return Lim::min();
-    case 'L': return Lim::max_exponent;
-    case 'O': return Lim::max();
+    case 'b': case 'B': return Lim::radix;
+    case 'p': case 'P': return EPS*Lim::radix;
+    case 'n': case 'N': return Lim::digits;
+    case 'r': case 'R': return RND;
+    case 'm': case 'M': return Lim::min_exponent;
+    case 'u': case 'U': return Lim::min();
+    case 'l': case 'L': return Lim::max_exponent;
+    case 'o': case 'O': return Lim::max();
     default:  return 0;
     }
 }
