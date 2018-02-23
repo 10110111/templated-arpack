@@ -24,11 +24,11 @@ srcFile=templated-arpack.hxx
 cp includes-begin.h "$srcFile"
 cat >> "$srcFile" <<'EOF'
 template<typename doublereal>
-struct ARPACK
+class ARPACK
 {
 EOF
 indent funcs.cpp >> "$srcFile"
-echo "    // Edited ARPACK functions" >> "$srcFile"
+echo -e "public:\n    // Edited ARPACK functions\n" >> "$srcFile"
 cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
                          -e 's@\<TRUE_\>@ true @g' \
                          -e 's@\<FALSE_\>@ false @g' \
