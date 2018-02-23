@@ -14,3 +14,4 @@ To make a test program which demonstrates the use of the library, make sure you 
 ```
 make
 ```
+You'll get a `test` binary, which you can run, and after a bit of time (15 seconds on my Core i7-4765T) it'll print its result.
