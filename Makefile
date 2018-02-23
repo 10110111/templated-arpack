@@ -4,6 +4,6 @@ test: Makefile templated-arpack.hxx test.cpp funcs.cpp f2c.h
 templated-arpack.hxx: Makefile src combine-c-srcs.sh $(shell echo src/* | grep -v \\*)
 	./combine-c-srcs.sh
 
-src: Makefile run-f2c.sh $(shell echo fortran/* | grep -v \\*)
+src: Makefile run-f2c.sh fortran $(shell echo fortran/* | grep -v \\*)
 	./run-f2c.sh
 	touch src # make sure make sees it as up-to-date
