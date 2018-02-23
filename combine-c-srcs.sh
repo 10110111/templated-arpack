@@ -21,22 +21,22 @@ rm "$tmpfile"
 
 cd ..
 srcFile=templated-arpack.hxx
-cat > "$srcFile" <<'EOF'
-#include "f2c.h"
-
+cp includes-begin.h "$srcFile"
+cat >> "$srcFile" <<'EOF'
 template<typename doublereal>
 struct ARPACK
 {
 EOF
+indent funcs.cpp >> "$srcFile"
+echo "    // Edited ARPACK functions" >> "$srcFile"
 cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
                          -e 's@\<TRUE_\>@ true @g' \
                          -e 's@\<FALSE_\>@ false @g' \
                          -e '/#ifdef __cplusplus/,/#endif$/d' \
                          -e '/#include "f2c.h"/d' \
-                         -e 's@dlamch_("@dlamch_<doublereal>("@g' \
                          -e '/^ *\/\* Subroutine \*\/.*;$/d' \
                          -e '/^ *\/\* Builtin functions \*\/$/,/^$/d' \
                          -e '/ \+extern\> .*;$/d' \
                          -e '/ \+extern\> .*[^;]$/,/;$/d' \
-                         >> "$srcFile"
-echo '};' >> "$srcFile"
+                         | indent >> "$srcFile"
+echo -e '};\n\n#endif // include guard' >> "$srcFile"
