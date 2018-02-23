@@ -12,7 +12,7 @@ for file in *.c; do
 
     # Move the (supposedly constant) static variables from global scope into function scope
     sed -n -e '/\/\* Table of constant values \*\//,/^$/p' -e '/^static /,/^$/p' "$outfile" | indent > "$tmpfile"
-    sed -e '/\/\* Table of constant values \*\//,/^$/d' -e '/^static /,/^$/d' -e '/^{/{q;}' "$outfile" > "$outfile.edit"
+    sed -e '/\/\* Table of constant values \*\//,/^$/d' -e '/^static /,/^$/d' -e '/^{/q' "$outfile" > "$outfile.edit"
     cat "$tmpfile" >> "$outfile.edit"
     sed '1,/^{/d' "$outfile" >> "$outfile.edit"
     mv "$outfile.edit" "$outfile"
