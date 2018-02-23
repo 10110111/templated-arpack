@@ -5,4 +5,12 @@ Currently it's in **early pre-alpha stage**. The only currently implemented func
 
 The library requires a compiler with C++14 support (e.g. g++-5 or clang-3.7).
 
-To build the C++ header which provides all the functionality, you need Bash and F2C. After you make sure they are available, simply type `make`. You'll get `test` executable, which demonstrates the use of the library, and `templated-arpack.hxx` — the actual header you can `#include` in your project and use in the same way as you'd use the low-level interface of Fortran version of ARPACK.
+To build the C++ header which provides all the functionality, you need Bash and F2C. After you make sure they are available, simply type
+```
+make templated-arpack.hxx
+```
+You'll get the header you can `#include` in your project and use in the same way as you'd use the low-level interface of Fortran version of ARPACK.
+To make a test program which demonstrates the use of the library, make sure you have Eigen library installed and type
+```
+make
+```
