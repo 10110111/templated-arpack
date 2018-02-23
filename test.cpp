@@ -16,6 +16,7 @@ using Real=double;
 constexpr Real PI=3.1415926535897932384626433832795029L;
 using SparseMatrix=Eigen::SparseMatrix<Real>;
 using DenseMatrix=Eigen::Matrix<Real,Eigen::Dynamic,Eigen::Dynamic>;
+using DenseVector=Eigen::Matrix<Real,Eigen::Dynamic,1>;
 
 Real sqr(Real x) { return x*x; }
 
@@ -83,14 +84,10 @@ public:
     }
 };
 
-Real stDev(DenseMatrix const& v)
+Real stDev(DenseVector const& v)
 {
     const auto N=v.rows();
-    Real sumOfSquares=0;
-    for(int i=0;i<N;++i)
-        sumOfSquares+=sqr(v(i));
-    sumOfSquares/=N-1;
-    return sqrt(sumOfSquares);
+    return sqrt(v.dot(v)/(N-1));
 }
 
 int main(int argc, char** argv)
