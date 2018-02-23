@@ -29,7 +29,7 @@ class ARPACK
 EOF
 indent funcs.cpp >> "$srcFile"
 echo -e "public:\n    // Edited ARPACK functions\n" >> "$srcFile"
-cat "$dirName"/*.c | sed -e 's@\<char *\*@const char*@g' \
+cat "$dirName"/*.c | sed -e 's@\<char *\*@const char* @g' \
                          -e 's@\<TRUE_\>@ true @g' \
                          -e 's@\<FALSE_\>@ false @g' \
                          -e '/#ifdef __cplusplus/,/#endif$/d' \
