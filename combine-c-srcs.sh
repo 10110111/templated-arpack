@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+indent() { sed 's@^.@    \0@' "$@"; }
+
 dirName=src-before-cat
 mkdir -pv "$dirName"
 tmpfile="$(mktemp)"
@@ -9,7 +11,7 @@ for file in *.c; do
     cp -v "$file" "$outfile"
 
     # Move the (supposedly constant) static variables from global scope into function scope
-    sed -n -e '/\/\* Table of constant values \*\//,/^$/p' -e '/^static /,/^$/p' "$outfile" | sed 's@^.@    \0@' > "$tmpfile"
+    sed -n -e '/\/\* Table of constant values \*\//,/^$/p' -e '/^static /,/^$/p' "$outfile" | indent > "$tmpfile"
     sed -e '/\/\* Table of constant values \*\//,/^$/d' -e '/^static /,/^$/d' -e '/^{/{q;}' "$outfile" > "$outfile.edit"
     cat "$tmpfile" >> "$outfile.edit"
     sed '1,/^{/d' "$outfile" >> "$outfile.edit"
